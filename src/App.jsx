@@ -1,121 +1,116 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import React, { useState } from 'react'
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+
+  /// GET DATA
+
+  const [data, setData] = useState([
+    {
+    id: 1,
+    name: "Learn React",
+  }, {
+    id: 2,
+    name: "Practice useState",
+  }, {
+    id: 3,
+    name: "Build a Todo List",
+  }, {
+    id: 4,
+    name: "Read documantation",
+  }
+])
+
+  /// DEL USER
+
+  const delUser = (id) => {
+    setData(data.filter((e) => e.id !== id))
+  }
+
+  /// ADD USER
+
+  const addUser = (e) => {
+    e.preventDefault()
+    const newUser = {
+      id: Date.now(),
+      name: e.target.name.value,
+      form: e.target.reset(),
+    }
+    setData([...data, newUser])
+  }
+
+  /// EDIT USER
+
+  const [open, Setopen] = useState(false)
+
+  const [editName, setEditName] = useState("")
+
+  const [idx, setIdx] = useState(null)
+
+  const formEditUser = (e) => {
+    e.preventDefault()
+    const newUser = {
+      id: idx,
+      name: editName,
+    }
+    setData(data.map((e) => e.id == idx ? newUser : e))
+    Setopen(false)
+  }
+
+  /// SERCH 
+
+  const [serch, setSearch] = useState("")
+  const filterData = data.filter((e)=> e.name.toLowerCase().includes(serch.toLowerCase().trim()))
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <main className='flex items-center justify-center w-full min-h-screen bg-blue-50'>
+      <div className='bg-white border w-120 m-auto rounded-lg  p-5'>
+        <p className='font-bold text-black text-4xl'>
+          To do list
+        </p>
+        <p className=' text-lg'>
+          Корхои худро ба осони идора кунед
+        </p>
+        <br />
+        <div>
+          <form onSubmit={addUser} className=' flex items-center justify-center gap-3'>
+            <input className='border-2 border-gray-300  px-3 py-1 rounded-lg w-[70%]' type="text" name="name" placeholder='Номи корро нависед...' />
+            <button className='bg-blue-500 text-white px-3 py-1 rounded-lg text-[20px] font-[600] cursor-pointer hover:bg-indigo-700' type='submit'> + Add</button>
+          </form>
         </div>
         <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
+          <input value={serch} onChange={(e) => setSearch(e.target.value)} className='border-2 border-gray-300 px-3 py-1 rounded-lg w-[90%] m-3' type="search" placeholder=' Search by name....' />
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+        <div>
+          {
+            filterData.map((e) => {
+               return <div key={e.id} className='flex items-center justify-between bg-white shadow-gray-500 rounded-lg shadow p-3 m-3'>
+                <p>{e.name}</p>
 
-      <div className="ticks"></div>
+                <div className='flex gap-2'>
+                  <button className='bg-red-100 shadow hover:bg-red-200 px-2 py-1 rounded-lg text-red-500 cursor-pointer' onClick={() => delUser(e.id)}>delete</button>
+                  <button className=' bg-gray-100  cursor-pointer shadow py-1 px-3 rounded-lg text-black hover:bg-gray-200 '  onClick={() => { Setopen(true), setEditName(e.name), setIdx(e.id) }}>edit</button>
+                </div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+
+
+              </div>
+            })
+          }
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      </div>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      {open ? <form onSubmit={formEditUser} className=' flex items-center justify-center gap-3 bg-black/20 border border-white/20 backdrop-blur-md absolute px-[50%] py-[50vh] rounded-lg backdrop-blur-2xl'>
+
+        <div className=' flex items-center justify-center gap-3 border bg-white absolute p-10 rounded-lg backdrop-blur-2xl'>
+
+          <input value={editName} onChange={(e) => setEditName(e.target.value)} className='border-2 border-gray-300 px-3 py-1 rounded-lg w-[70%]' type="text" name="name" placeholder='Номи корро нависед...' />
+          <button className='bg-indigo-500 text-white px-3 py-1 rounded-lg text-[20px] font-[600] cursor-pointer hover:bg-indigo-700' type='submit'>Save</button>
+          <button className='border px-2 p-1 rounded-lg text-black font-[500] hover:bg-gray-100 cursor-pointer' onClick={() => Setopen(false)} type='button'>Cancel</button>
+        
+        </div>
+      </form> : null}
+
+    </main>
   )
 }
 
