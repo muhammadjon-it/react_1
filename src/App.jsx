@@ -111,9 +111,21 @@ const App = () => {
         open={editModal}
         onOk={handleOk}
         onCancel={handleCancel}
-       footer={null}
+        footer={null}
       >
-        
+        <form className='p-10'>
+          <p className='font-bold text-2xl'>Add User</p>
+          <br />
+          <label htmlFor="Name">Name</label>
+          <Input />
+          <br /> <br />
+          <label htmlFor="Name">Age</label>
+          <Input />
+          <br /> <br />
+          <Button style={{ color: "red", borderColor: "red" }}>Cancel</Button>
+          <Button>Save</Button>
+        </form>
+
       </Modal>
     </section>
   )
