@@ -71,7 +71,7 @@ const App = () => {
 
   const [editUser, setEditUser] = useState(null)
 
-  const [indexImg, setIndexImg]=useState({})
+  const [indexImg, setIndexImg] = useState({})
 
   async function delImg(id) {
     try {
@@ -92,12 +92,12 @@ const App = () => {
     }
   }
 
-  async function delUser(id) {
+  async function delImg(imageId) {
     try {
-      await axios.delete(`${api}/api/to-dos?id=${id}`)
-      getData()
+      await axios.delete(`${api}/api/to-dos/images/${imageId}`);
+      await getData();
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   }
 
@@ -203,7 +203,14 @@ const App = () => {
                   <Carousel className="w-40 h-40 relative">
                     <CarouselContent>
                       {el.images.map((image, id) => (
-                        <CarouselItem key={id} className="w-40 h-40">
+                        <CarouselItem key={image.id} className="w-40 h-40 relative">
+                          <button
+                            onClick={() => delImg(image.id)}
+                            className="absolute right-2 top-2 z-10 bg-red-500 text-white rounded-full w-7 h-7"
+                          >
+                            ×
+                          </button>
+
                           <img
                             className="w-full h-full object-cover rounded-lg"
                             src={api + "/images/" + image.imageName}
@@ -254,7 +261,7 @@ const App = () => {
                   </DropdownMenuGroup>
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
-                    <DropdownMenuItem onClick={()=> delImg(el.images[indexImg.index].id)} variant="destructive">
+                    <DropdownMenuItem>
                       <Trash2Icon />
                       Delete Image
                     </DropdownMenuItem>
