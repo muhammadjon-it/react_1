@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react'
 
 import {
   Card,
-  CardAction,
-  CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+
 import { Button } from './components/ui/button';
+
+import { Checkbox } from "@/components/ui/checkbox"
 
 import {
   Dialog,
@@ -21,17 +22,71 @@ import {
 
 import { Input } from "@/components/ui/input"
 
-const api = "https://to-dos-api.softclub.tj/api/to-dos"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+
+import {
+  ArchiveIcon,
+  CalendarPlusIcon,
+  ClockIcon,
+  ListFilterIcon,
+  MailCheckIcon,
+  MoreHorizontalIcon,
+  TagIcon,
+  Trash2Icon,
+} from "lucide-react"
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+import { Badge } from "@/components/ui/badge"
+
+const api = "https://to-dos-api.softclub.tj"
 
 const App = () => {
 
+  const [editOpen, setEditOpen] = useState(false)
   const [data, setData] = useState([])
+
+  const [addName, setAddName] = useState("")
+  const [addDesc, setAddDesc] = useState("")
+  const [addImg, setAddImg] = useState([])
+  const [addOpen, setAddOpen] = useState(false)
+
+  const [editUser, setEditUser] = useState(null)
+
+  const [indexImg, setIndexImg]=useState({})
+
+  async function delImg(id) {
+    try {
+      await axios.delete(`${api}/api/to-dos/image?id=${id}`)
+      getData()
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
 
   async function getData() {
     try {
-      const { data } = await axios.get(api)
+      const { data } = await axios.get(api + "/api/to-dos")
       setData(data.data)
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -39,7 +94,50 @@ const App = () => {
 
   async function delUser(id) {
     try {
-      await axios.delete(`${api}?id=${id}`)
+      await axios.delete(`${api}/api/to-dos?id=${id}`)
+      getData()
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function addUser(e) {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append("name", addName)
+      formData.append("description", addDesc)
+      for (let i = 0; i < addImg.length; i++) {
+        formData.append("images", addImg[i]);
+      }
+
+      await axios.post(`${api}/api/to-dos`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      })
+
+      setAddName("");
+      setAddDesc("");
+      setAddImg([]);
+      setAddOpen(false);
+      getData();
+    } catch (error) {
+      console.error(error);
+
+    }
+  }
+
+  async function editSubmit(e) {
+    e.preventDefault()
+    try {
+      const editedUser = {
+        id: editUser.id,
+        name: editUser.name,
+        description: editUser.description
+      }
+      await axios.put(`${api}/api/to-dos`, editedUser)
+      setEditOpen(false)
       getData()
     } catch (error) {
       console.error(error);
@@ -47,14 +145,10 @@ const App = () => {
     }
   }
 
-  
-
   useEffect(() => {
     getData()
   }, [])
 
-  const [addOpen, setAddOpen] = useState(false)
-  const [editOpen, setEditOpen] = useState(false)
 
   return <>
     <div className=' flex items-center justify-center gap-5 mt-8'>
@@ -65,13 +159,29 @@ const App = () => {
           </Button>
         </DialogTrigger>
         <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Add User</DialogTitle>
-            <Input placeholder="Name..." />
-            <Input placeholder="Description..." />
-            <Button className="w-[90%] m-auto ">Save</Button>
-            <Button className="w-[90%] m-auto" variant='outline' onClick={() => setAddOpen(false)}>Cancel</Button>
-          </DialogHeader>
+          <form onSubmit={addUser}>
+            <DialogHeader className="flex gap-5">
+              <DialogTitle>Add User</DialogTitle>
+              <Input
+                className="cursor-pointer"
+                type="file"
+                multiple
+                onChange={(e) => setAddImg(e.target.files)}
+              />
+              <Input
+                placeholder="Name..."
+                value={addName}
+                onChange={(e) => setAddName(e.target.value)}
+              />
+              <Input
+                placeholder="Description..."
+                value={addDesc}
+                onChange={(e) => setAddDesc(e.target.value)}
+              />
+              <Button className="w-[90%] m-auto" type="submit">Save</Button>
+              <Button className="w-[90%] m-auto" variant='outline' onClick={() => setAddOpen(false)}>Cancel</Button>
+            </DialogHeader>
+          </form>
         </DialogContent>
       </Dialog>
     </div>
@@ -81,34 +191,111 @@ const App = () => {
         data.map((el) => {
           return (<Card key={el.id} className="m-3">
             <CardHeader>
-              <CardTitle>{el.name}</CardTitle>
-              <CardAction>{el.isCompleted ? "Online" : "Ofline"}</CardAction>
+              <CardTitle>
+                <div className='flex items-center justify-between'>
+                  <Checkbox checked={el.isCompleted} />
+                  <Badge variant="outline">
+                    {el.isCompleted ? "Online" : "Offline"}
+                  </Badge>
+                </div>
+                <div className="flex items-center justify-center w-full">
+
+                  <Carousel className="w-40 h-40 relative">
+                    <CarouselContent>
+                      {el.images.map((image, id) => (
+                        <CarouselItem key={id} className="w-40 h-40">
+                          <img
+                            className="w-full h-full object-cover rounded-lg"
+                            src={api + "/images/" + image.imageName}
+                            alt="Product"
+                          />
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+
+                    <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10" />
+                    <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10" />
+                  </Carousel>
+
+                </div>
+
+
+              </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p>{el.description}</p>
-            </CardContent>
-            <CardFooter className="flex flex-col-reverse gap-2">
-              <Dialog open={editOpen} onOpenChange={setEditOpen}>
-                <DialogTrigger>
-                  <Button className="cursor-pointer w-62" variant='outline' >
-                    Edit
+            <CardFooter className="">
+              {el.name}
+              <DropdownMenu >
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="icon" aria-label="More Options">
+                    <MoreHorizontalIcon />
                   </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Edit User</DialogTitle>
-                    <Input placeholder="Name..." />
-                    <Input placeholder="Description..." />
-                    <Button className="w-[90%] m-auto ">Save</Button>
-                    <Button className="w-[90%] m-auto" variant='outline' onClick={() => setEditOpen(false)}>Cancel</Button>
-                  </DialogHeader>
-                </DialogContent>
-              </Dialog>
-              <Button className="w-[90%] cursor-pointer" onClick={() => delUser(el.id)}>Delte</Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-40">
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem>
+                      Info
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem>
+                      + Add Image
+                    </DropdownMenuItem>
+
+                    <button
+                      onClick={() => {
+                        setEditUser(el)
+                        setEditOpen(true)
+                      }}
+                      className="relative flex w-full  select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+                    >
+                      Edit
+                    </button>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem onClick={()=> delImg(el.images[indexImg.index].id)} variant="destructive">
+                      <Trash2Icon />
+                      Delete Image
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => delUser(el.id)} variant="destructive">
+                      <Trash2Icon />
+                      Delete User
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </CardFooter>
           </Card>)
         })
       }
+    </div>
+    {/* DIALOG EDIT */}
+
+    <div className=' flex items-center justify-center gap-5 mt-8'>
+      <Dialog open={editOpen} onOpenChange={setEditOpen}>
+        <DialogContent>
+          <form onSubmit={editSubmit}>
+            <DialogHeader className="flex gap-5">
+              <DialogTitle>  User</DialogTitle>
+              <Input
+                placeholder="Name..."
+                value={editUser?.name}
+                onChange={(e) => setEditUser({ ...editUser, name: e.target.value })}
+
+              />
+              <Input
+                placeholder="Description..."
+                value={editUser?.description}
+                onChange={(e) => setEditUser({ ...editUser, description: e.target.value })}
+
+              />
+              <Button className="w-[90%] m-auto" type="submit">Save</Button>
+              <Button className="w-[90%] m-auto" variant='outline' type="button" onClick={() => setEditOpen(false)}>Cancel</Button>
+            </DialogHeader>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   </>
 }
