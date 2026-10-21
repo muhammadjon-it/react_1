@@ -2,11 +2,13 @@ import React from 'react'
 import Layout from '@/Layout/Layout'
 import Home from './pages/Home'
 import About from './pages/About'
-import Products from './pages/Products'
 import NotFound from './pages/NotFound'
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
-import ProductById from './pages/ProductById'
+import Catalog from './pages/Catalog'
+import News from './pages/News'
+import Partners from './pages/Partners'
+import Contacts from './pages/Contacts'
 
 const App = () => {
   const router = createBrowserRouter([
@@ -18,15 +20,21 @@ const App = () => {
           index: true,
           element: <Home />
         }, {
+          path: "catalog",
+          element: <Catalog />
+        }, {
           path: "about",
           element: <About />
         }, {
-          path: "products",
-          element: <Products />
+          path: "news",
+          element: <News />
         }, {
-          path: "products/:id",
-          element: <ProductById />
-        },
+          path: "partners",
+          element: <Partners />
+        }, {
+          path: "contacts",
+          element: <Contacts />
+        }, 
       ]
     },
     {
