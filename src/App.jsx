@@ -13,6 +13,7 @@ const Products = lazy(() => import('./pages/Products'))
 const Home = lazy(() => import('./pages/Home'))
 const About = lazy(() => import('./pages/About'))
 const ProductById = lazy(() => import('./pages/ProductById'))
+const Todos = lazy(()=> import('@/pages/Todos'))
 
 
 const App = () => {
@@ -32,16 +33,11 @@ const App = () => {
             <About />
           </Suspense>
         }, {
-          path: "products",
+          path:"todos",
           element: <Suspense fallback={Loading}>
-            <Products />
+            <Todos/>
           </Suspense>
-        }, {
-          path: "products/:id",
-          element: <Suspense fallback={Loading}>
-            <ProductById />
-          </Suspense>
-        },
+        }
       ]
     },
     {
