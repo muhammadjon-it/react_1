@@ -3,16 +3,18 @@ import Layout from '@/Layout/Layout'
 import NotFound from './pages/NotFound'
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
+import AuthFlow from './pages/AuthFlow';
+import Login from './pages/Login';
+import Todos from './pages/Todos';
+import Sidebar from './Layout/Sidebar';
 
 const Loading = (
   <div className="pt-30">
     <p>Loading...</p>
   </div>
 )
-const Products = lazy(() => import('./pages/Products'))
 const Home = lazy(() => import('./pages/Home'))
 const About = lazy(() => import('./pages/About'))
-const ProductById = lazy(() => import('./pages/ProductById'))
 
 
 const App = () => {
@@ -23,30 +25,49 @@ const App = () => {
       children: [
         {
           index: true,
-          element: <Suspense fallback={Loading}>
-            <Home />
-          </Suspense>
+          element:
+
+            <Suspense fallback={Loading}>
+              <Home />
+            </Suspense>
         }, {
           path: "about",
-          element: <Suspense fallback={Loading}>
-            <About />
-          </Suspense>
-        }, {
-          path: "products",
-          element: <Suspense fallback={Loading}>
-            <Products />
-          </Suspense>
-        }, {
-          path: "products/:id",
-          element: <Suspense fallback={Loading}>
-            <ProductById />
-          </Suspense>
+          element:
+            <AuthFlow>
+              <Suspense fallback={Loading}>
+                <About />
+              </Suspense>
+            </AuthFlow>
         },
       ]
     },
     {
       path: "*",
       element: <NotFound />
+    }, {
+      path: "login",
+      element:
+        <AuthFlow>
+          <Suspense fallback={Loading}>
+            <Login />
+          </Suspense>
+        </AuthFlow>
+    },
+    {
+      path: "todos",
+      element: <Sidebar />,
+      children: [
+        {
+          index: true,
+          element: (
+            <AuthFlow>
+              <Suspense fallback={Loading}>
+                <Todos />
+              </Suspense>
+            </AuthFlow>
+          )
+        }
+      ]
     }
   ])
   return (
