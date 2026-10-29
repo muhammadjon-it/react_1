@@ -42,35 +42,35 @@ const Home = () => {
         </div>
       </div>
       <div className="bg-[#D7D7D7] p-10 text-black transition-colors duration-300 dark:bg-[#111827] dark:text-white">
-        <p className="text-2xl font-bold text-center border-4 py-1 w-50 m-auto">{t("about_title   ")}</p>
+        <p className="text-2xl font-bold text-center border-4 py-1 w-50 m-auto">{t("about_title")}</p>
         <br /> <br />
         <p className="text-[#050505] text-center w- dark:text-white"> Nulla in velit a metus rhoncus tempus. Nulla congue nulla vel sem varius finibus. Sed ornare sit amet lorem <br /> sed viverra. In vel urna quis libero viverra facilisis ut ac est.</p>
         <br /> <br />
-        <p className="m-auto font-bold border-x-2 w-25 px-4 ">EXPLORE</p>
+        <p className="m-auto font-bold border-x-2 w-25 px-4 ">{t("explore")}</p>
 
         <br /> <br />
         <div className="flex justify-between gap-45 px-10">
           <div className="w-150">
-            <p className="text-xl font-bold">DESIGN</p>
+            <p className="text-xl font-bold">{t("design")}</p>
             <br />
             <p>I can design the site based on your needs and suggestions. I can also design the site from scratch and consult you during the job.</p>
           </div>
           <div className="w-150">
-            <p className="text-xl font-bold">DEVELOPMENT</p>
+            <p className="text-xl font-bold">{t("development")}</p>
             <br />
             <p>I can design the site based on your needs and suggestions. I can also design the site from scratch and consult you during the job.</p>
           </div>
         </div>
         <br /> <br /> <br />
         <div className="w-120 m-auto">
-          <p className="text-xl font-bold">MAINTENANCE</p>
+          <p className="text-xl font-bold">{t("maintenance")}</p>
           <br />
           <p>I can design the site based on your needs and suggestions. I can also design the site from scratch and consult you during the job.</p>
         </div>
         <br /> <br /> <br />
-        <p className="text-2xl font-bold text-center border-4 py-1 w-50 m-auto">SKILLS</p>
+        <p className="text-2xl font-bold text-center border-4 py-1 w-50 m-auto">{t("skills")}</p>
         <br /> <br /> <br />
-        <p className="font-bold text-2xl px-50">USING NOW:</p>
+        <p className="font-bold text-2xl px-50">{t("using_now")}</p>
         <br /> <br />
         <div className="flex flex-wrap gap-26 px-50">
           <div className="flex flex-col justify-center items-center">
@@ -156,7 +156,7 @@ const Home = () => {
           </div>
         </div>
         <br /> <br /> <br />
-        <p className="font-bold text-2xl px-50">LEARNING:</p>
+        <p className="font-bold text-2xl px-50">{t('learning')}</p>
         <br /> <br />
         <div className="flex flex-wrap gap-26 px-50">
           <div className="flex flex-col justify-center items-center">
