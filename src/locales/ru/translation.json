@@ -1,0 +1,27 @@
+
+{
+  "home": "Главная",
+  "about": "Обо мне",
+  "products": "Проекты",
+  "contact": "Связаться со мной",
+  "hero_greeting": "Привет, я",
+  "hero_role": "Front-end разработчик / UI-дизайнер",
+  "about_title": "ОБО МНЕ",
+  "about_description": "Я создаю современные и красивые веб-сайты.",
+  "explore": "Подробнее",
+  "design": "ДИЗАЙН",
+  "development": "РАЗРАБОТКА",
+  "maintenance": "ПОДДЕРЖКА",
+  "skills": "НАВЫКИ",
+  "learning": "ИЗУЧАЮ",
+  "other_skills": "ДРУГИЕ НАВЫКИ",
+  "portfolio": "ПОРТФОЛИО",
+  "my_projects": "МОИ ПРОЕКТЫ",
+  "contact_title": "СВЯЗАТЬСЯ СО МНОЙ",
+  "name": "Ваше имя",
+  "email": "Электронная почта",
+  "message": "Ваше сообщение",
+  "send": "ОТПРАВИТЬ",
+  "hero_name": "Томаз Гажда"
+
+}

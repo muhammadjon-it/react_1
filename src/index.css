@@ -1,1 +1,56 @@
+
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-border: var(--border);
+}
+
+
+:root {
+  --page-bg: #d7d7d7;
+  --page-text: #111111;
+  --page-muted: #4b5563;
+  --section-bg: #d7d7d7;
+  --field-bg: transparent;
+}
+
+.dark {
+  --page-bg: #0b1120;
+  --page-text: #f8fafc;
+  --page-muted: #cbd5e1;
+  --section-bg: #111827;
+  --field-bg: #1e293b;
+}
+
+body {
+  background: var(--page-bg);
+  color: var(--page-text);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.portfolio-theme {
+  color: var(--page-text);
+}
+
+.portfolio-theme .theme-section {
+  background: var(--section-bg);
+  color: var(--page-text);
+}
+
+.portfolio-theme .theme-muted {
+  color: var(--page-muted);
+}
+
+.portfolio-theme .theme-input {
+  background: var(--field-bg);
+  color: var(--page-text);
+}
+
+.portfolio-theme .theme-input::placeholder {
+  color: var(--page-muted);
+}

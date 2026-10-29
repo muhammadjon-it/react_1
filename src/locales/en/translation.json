@@ -1,0 +1,27 @@
+
+{
+  "home": "Home",
+  "about": "About",
+  "products": "Projects",
+  "contact": "Contact me",
+  "hero_greeting": "Hi, I am",
+  "hero_role": "Front-end Developer / UI Designer",
+  "about_title": "ABOUT ME",
+  "about_description": "I create modern and beautiful websites.",
+  "explore": "EXPLORE",
+  "design": "DESIGN",
+  "development": "DEVELOPMENT",
+  "maintenance": "MAINTENANCE",
+  "skills": "SKILLS",
+  "learning": "LEARNING",
+  "other_skills": "OTHER SKILLS",
+  "portfolio": "PORTFOLIO",
+  "my_projects": "MY PROJECTS",
+  "contact_title": "CONTACT ME",
+  "name": "Your name",
+  "email": "Email address",
+  "message": "Your message",
+  "send": "SEND",
+  "hero_name": "Tomasz Gajda"
+
+}
