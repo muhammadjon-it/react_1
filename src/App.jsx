@@ -80,6 +80,8 @@ const cartReducer = (state, action) => {
   if (action.type == "close_edit") {
     return { ...state, editOpen: action.value }
   }
+  
+// Info
 
   if (action.type == "open_info") {
     return { ...state, infoOpen: true, userToInfo: { ...action.value } }
@@ -88,6 +90,9 @@ const cartReducer = (state, action) => {
   if (action.type == "close_info") {
     return { ...state, infoOpen: action.value, userToInfo: action.value ? state.userToInfo : null }
   }
+
+  // Search 
+
   if (action.type == "search_user") {
     return { ...state, search: action.value }
   }
