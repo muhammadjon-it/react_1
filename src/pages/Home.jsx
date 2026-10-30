@@ -190,7 +190,7 @@ const Home = () => {
           </div>
         </div>
         <br /> <br /> <br />
-        <p className="font-bold text-2xl px-50 text-start w-200">OTHER SKILLS:</p>
+        <p className="font-bold text-2xl px-50 text-start w-200">{t("other_skills")}</p>
         <br /> <br />
         <div className="flex flex-wrap gap-26 px-40">
           <div className="flex flex-col justify-center items-center">
@@ -277,7 +277,7 @@ const Home = () => {
         <div
           className="mx-[-40px] py-10  bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${Image_2})` }}>
-          <p className="text-2xl font-bold text-center border-4 py-1 w-80 m-auto • tracking-[10px]">PORTFOLIO</p>
+          <p className="text-2xl font-bold text-center border-4 py-1 w-80 m-auto • tracking-[10px]">{t("portfolio")}</p>
           <br /> <br />
         </div>
         <div className="mx-[-35px] mt-1">
@@ -288,20 +288,20 @@ const Home = () => {
           </MySwiper>
           <br /> <br />
         </div>
-        <p className="text-2xl font-bold text-center border-4 py-1 w-80 m-auto • tracking-[10px]">CONTACT</p>
+        <p className="text-2xl font-bold text-center border-4 py-1 w-80 m-auto • tracking-[10px]">{t("contact_title")}</p>
         <br /> <br />
         <p className="text-center">Nulla in velit a metus rhoncus tempus. Nulla congue nulla vel sem varius finibus. Sed ornare sit amet lorem <br /> sed viverra. In vel urna quis libero viverra facilisis ut ac est.</p>
         <br /> <br />
         <form className="m-auto w-100">
-          <input className="border-b-4 border-l-4 border-gray-800 bg-transparent px-3 font-bold py-1 w-full text-black placeholder:text-gray-500 dark:border-gray-400 dark:bg-slate-800 dark:text-white dark:placeholder:text-gray-300" type="text" placeholder="ENTER YOUR NAME*" />
+          <input className="border-b-4 border-l-4 border-gray-800 bg-transparent px-3 font-bold py-1 w-full text-black placeholder:text-gray-500 dark:border-gray-400 dark:bg-slate-800 dark:text-white dark:placeholder:text-gray-300" type="text" placeholder={t("name")} />
           <br /> <br />
-          <input className="border-b-4 border-l-4 border-gray-800 bg-transparent px-3 font-bold py-1 w-full text-black placeholder:text-gray-500 dark:border-gray-400 dark:bg-slate-800 dark:text-white dark:placeholder:text-gray-300" type="email" placeholder="ENTER YOUR EMAIL*" />
+          <input className="border-b-4 border-l-4 border-gray-800 bg-transparent px-3 font-bold py-1 w-full text-black placeholder:text-gray-500 dark:border-gray-400 dark:bg-slate-800 dark:text-white dark:placeholder:text-gray-300" type="email" placeholder={t("email")} />
           <br /> <br />
           <input className="border-b-4 border-l-4 border-gray-800 bg-transparent px-3 font-bold py-1 w-full text-black placeholder:text-gray-500 dark:border-gray-400 dark:bg-slate-800 dark:text-white dark:placeholder:text-gray-300" type="number" placeholder="PHONE NUMBER" />
           <br /> <br />
-          <textarea className="border-b-4 border-l-4 border-gray-800 bg-transparent px-3 font-bold py-1 w-full h-30 text-black placeholder:text-gray-500 dark:border-gray-400 dark:bg-slate-800 dark:text-white dark:placeholder:text-gray-300" type="" placeholder="ENTER YOUR NAME*" />
+          <textarea className="border-b-4 border-l-4 border-gray-800 bg-transparent px-3 font-bold py-1 w-full h-30 text-black placeholder:text-gray-500 dark:border-gray-400 dark:bg-slate-800 dark:text-white dark:placeholder:text-gray-300" type="" placeholder={t("message")} />
           <br /> <br />
-          <button className="border-x-2  font-bold px-3 text-xl ml-30 cursor-pointer">SUBMIT</button>
+          <button className="border-x-2  font-bold px-3 text-xl ml-30 cursor-pointer">{t("send")}</button>
         </form>
       </div>
       <div className="bg-black text-white p-10">
