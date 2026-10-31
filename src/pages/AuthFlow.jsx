@@ -5,10 +5,12 @@ const AuthFlow = ({ children }) => {
     const token = localStorage.getItem("token")
     const isLoginPage = location.pathname === '/login'
 
+
     if (token && isLoginPage) {
-        return <Navigate to="/login" replace />
+        return <Navigate to="/todos" replace />
     }
 
+    
     if (!token && !isLoginPage) {
         return <Navigate to="/login" replace />
     }
