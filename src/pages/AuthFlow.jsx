@@ -7,7 +7,7 @@ const AuthFlow = ({ children }) => {
 
 
     if (token && isLoginPage) {
-        return <Navigate to="/todos" replace />
+        return <Navigate to="/" replace />
     }
 
     
