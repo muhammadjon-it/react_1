@@ -1,20 +1,19 @@
 import React from "react";
 import { Swiper as SwiperComponent, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/pagination";
-import "swiper/css/navigation";
 
 function CustomSwiper({ children }) {
   const slides = React.Children.toArray(children);
 
   return (
     <SwiperComponent
-      modules={[ Pagination, Navigation]}
+      modules={[ Pagination]}
       slidesPerView={1}
       spaceBetween={20}
-      navigation
+      navigation ={false}
       pagination={{ clickable: true }}
       loop={true}
       className="overflow-hidden rounded-xl"
